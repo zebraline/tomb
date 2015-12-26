@@ -1,0 +1,4 @@
+recursive-include tomb/public *
+include tomb/public/favicon.ico
+recursive-include tomb/i18n *
+recursive-include tomb/templates *

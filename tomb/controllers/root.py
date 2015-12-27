@@ -105,7 +105,7 @@ class RootController(BaseController):
                     came_from=came_from, login=login)
 
     @expose('json')
-    def post_login(self, user_name, password):
+    def post_login(self, login='', password=''):
         """
         Redirect the user to the initially requested page on successful
         authentication or redirect her back to the login page if login failed.
@@ -114,13 +114,18 @@ class RootController(BaseController):
         # import ipdb;ipdb.set_trace()
 
         # check registed user
-        find_result = DBSession.query(model.User).filter_by(
-            user_name=user_name).filter_by(password=password).first()
+        find_result = DBSession.query(model.User).filter_by(user_name=login)
+        if password:
+            find_result = find_result.filter_by(password=password)
+        find_result = find_result.first()
         if not find_result:
             return USER_PASSWORD_ERROR
 
         for key in USER_KEYS:
             LOGIN_SUCCESS.update({key: getattr(find_result, key)})
+
+        message = self.__get_message(find_result.user_id)
+        LOGIN_SUCCESS['message_list'] = message
 
         return LOGIN_SUCCESS
 
@@ -202,25 +207,28 @@ class RootController(BaseController):
 
     @expose('json')
     def get_message(self, user_id):
-        result = {}
-        result_list = []
         # import ipdb;ipdb.set_trace()
+        result = {}
+        result_list = self.__get_message(user_id)
+        result['result_list'] = result_list
+        return result
 
+    def __get_message(self, user_id):
+        result_list = []
         query_res = model.DBSession.query(model.Message).filter(
             model.Message.user_id==user_id).all()
         for res in query_res:
             node = {}
             message_id = res.message_id
             node['text'] = res.text
-            node['created'] = res.created.split()[0]
+            node['created'] = res.created.strftime('%Y-%m-%d %H:%M:%S').split()[0]
             node['message_id'] = message_id
             query_res = model.DBSession.query(model.Image).filter(
                 model.Image.message_id==message_id).all()
             node['image_list'] = self.__trans_image(query_res)
             result_list.append(node)
 
-        result['result_list'] = result_list
-        return result
+        return result_list
 
 
     def __trans_image(self, image):

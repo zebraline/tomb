@@ -1,0 +1,77 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:py="http://genshi.edgewall.org/"
+    xmlns:xi="http://www.w3.org/2001/XInclude">
+
+<xi:include href="master.html" />
+
+<head>
+  <title>Login Form</title>
+  <style>
+  body,div,p, h1,h2,h3,h4,h5,h6{
+    color:#efefef !important;
+  }
+  .fh{
+    height:100%;
+  }
+</style>
+</head>
+
+<body class='fh' >
+  <div class="row" style="margin-top:5%">
+    <div class="col-md-6 col-md-offset-3">
+    <h1 class='text-center' style='margin-bottom:40px; color:#f7f7dc !important;text-shadow:1px 1px 1px rgba(0,0,0,0.7)'>未来死亡纪念碑</h1>
+      <div class="table-responsive">
+          <table class="table table-hover">
+              <tr py:for="key in sorted(result)">
+                  <py:choose test="">
+                    <py:when test="key == 'user_name'">${result.get(key)}</py:when>
+                    <py:when test="key == 'photo'"> <img src="${result.get(key)}" height='100px' wide='100px'></img></py:when>
+                  </py:choose>
+              </tr>
+          </table>
+      </div>
+    </div>
+      <form action="/add_message" method="post" accept-charset="UTF-8" class="form-horizontal">
+        <div class="col-sm-6 col-sm-offset-3">
+          <textarea class="form-control" rows="3" cols="20" name="text" placeholder='能说点啥~'/>
+          <input class="form-control" type="hidden" name="user_id" value="${result.get('user_id')}" />
+        </div>
+        <div class="col-sm-2 col-sm-offset-3" style='margin-top:5px;'>
+          <button type="submit" class="btn btn-default">发布</button>
+        </div>
+      </form>
+    <div class="col-md-6 col-md-offset-3">
+      <tr><td>FaceBook | </td></tr>
+      <tr><td>微信 | </td></tr>
+      <tr><td>QQ | </td></tr>
+    </div>
+
+      <div class="col-md-6 col-md-offset-3">
+        <tr py:for="key in sorted(result)">
+            <py:choose test="">
+              <py:when test="key == 'message_list'">
+              <!-- ${result[key]} -->
+              <tr py:for="dic in result[key]">
+                <tr py:for="k, v in dic.iteritems()">
+                  <py:choose test="">
+                    <td><py:when test="k == 'created'">${dic[k]}</py:when></td>
+                  </py:choose>
+                </tr>
+                <tr py:for="k, v in dic.iteritems()">
+                  <py:choose test="">
+                    <td><py:when test="k == 'text'">${dic[k]}</py:when></td>
+                  </py:choose>
+                </tr>
+                <tr py:for="k, v in dic.iteritems()">
+                  <py:choose test="">
+                    <td><py:when test="k == 'image_list'">${dic[k]}</py:when></td>
+                  </py:choose>
+                </tr>
+              </tr>
+            </py:when>
+            </py:choose>
+        </tr>
+      </div>
+  </div>
+</body>
+</html>

@@ -93,14 +93,6 @@
 				container = document.createElement( 'div' );
 				document.body.appendChild( container );
 
-				// var info = document.createElement( 'div' );
-				// info.style.position = 'absolute';
-				// info.style.top = '10px';
-				// info.style.width = '100%';
-				// info.style.textAlign = 'center';
-				// info.innerHTML = '<a href="http://threejs.org" target="_blank">three.js</a> webgl - interactive cubes';
-				// container.appendChild( info );
-
 				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 10000 );
 
 				scene = new THREE.Scene();
@@ -136,35 +128,10 @@
 					object.position.z = Math.random() * 800 - 600;
 
 					objs.push(object);
-					// var mesh = new THREE.Mesh( geometry, steel );
-					// mesh.position.x = Math.random() * 800 - 600;
-					// mesh.position.y = Math.random() * 800 - 600;
-					// mesh.position.z = Math.random() * 800 - 600;
-					// scene.add( mesh );
-					// meshes.push( mesh );
-					// object.rotation.x = Math.random() * 2 * Math.PI;
-					// object.rotation.y = Math.random() * 2 * Math.PI;
-					// object.rotation.z = Math.random() * 2 * Math.PI;
-
-					// object.scale.x = Math.random() + 0.5;
-					// object.scale.y = Math.random() + 0.5;
-					// object.scale.z = Math.random() + 0.5;
 
 					scene.add( object );
 
 				}
-				// $('#search').keypress(function (e) {
-				// 	console.log("hello");
-				// 	camera.lookAt( objs[0].position );
-				// 	console.log("hello");
-				// 	objs[0].position.x += 10;
-				// 	objs[0].position.y += 10;
-
-				// 	// camera.lookAt( objs[0].position );
-				// })
-
-
-        // Skybox
 
         var shader = THREE.ShaderLib[ "cube" ];
         shader.uniforms[ "tCube" ].value = textureCube;

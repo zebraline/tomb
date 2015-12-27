@@ -2,7 +2,7 @@
 
 # success status
 SUCCESS = { "status": "success", "description":"操作成功!","errorcode": 0}
-LOGIN_SUCCESS = { "status": "success", "description":"登陆成功!","errorcode": 1}
+LOGIN_SUCCESS = { "status": "success", "description":"","errorcode": 1}
 FIND_NOTHING = { "status": "success", "description":"空空的欸!","errorcode": 2, "result_list":{}}
 
 # error status

@@ -104,7 +104,7 @@ class RootController(BaseController):
         return dict(page='login', login_counter=str(login_counter),
                     came_from=came_from, login=login)
 
-    @expose('json')
+    @expose('tomb.templates.info')
     def post_login(self, login='', password=''):
         """
         Redirect the user to the initially requested page on successful
@@ -127,7 +127,9 @@ class RootController(BaseController):
         message = self.__get_message(find_result.user_id)
         LOGIN_SUCCESS['message_list'] = message
 
-        return LOGIN_SUCCESS
+        result = {}
+        result['result'] = LOGIN_SUCCESS
+        return result
 
 
     @expose()

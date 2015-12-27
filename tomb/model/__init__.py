@@ -57,6 +57,6 @@ def init_model(engine):
     # mapper(Reflected, t_reflected)
 
 # Import your model modules here.
-from tomb.model.auth import User, Group, Permission
+from tomb.model.auth import User, Message, Image
 
-__all__ = ('User', 'Group', 'Permission')
+# __all__ = ('User', 'Group', 'Permission')

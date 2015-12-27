@@ -15,7 +15,7 @@ from tgext.admin.controller import AdminController
 from tomb.lib.base import BaseController
 from tomb.controllers.error import ErrorController
 import transaction
-from error_code import * 
+from error_code import *
 from base import *
 
 __all__ = ['RootController']
@@ -67,6 +67,15 @@ class RootController(BaseController):
         """
         return dict(page='data', params=kw)
 
+    @expose('tomb.templates.tomb')
+    @expose('json')
+    def tomb(self, **kw):
+        """
+        This method showcases how you can use the same controller
+        for a data page and a display page.
+        """
+        return dict(page='tomb', params=kw)
+
     @expose('tomb.templates.index')
     @require(predicates.has_permission('manage', msg=l_('Only for managers')))
     def manage_permission_only(self, **kw):
@@ -114,7 +123,7 @@ class RootController(BaseController):
             LOGIN_SUCCESS.update({key: getattr(find_result, key)})
 
         return LOGIN_SUCCESS
-        
+
 
     @expose()
     def post_logout(self, came_from=lurl('/')):
@@ -196,7 +205,7 @@ class RootController(BaseController):
         result = {}
         result_list = []
         # import ipdb;ipdb.set_trace()
-        
+
         query_res = model.DBSession.query(model.Message).filter(
             model.Message.user_id==user_id).all()
         for res in query_res:

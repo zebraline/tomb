@@ -11,9 +11,14 @@
   <link rel="stylesheet" type="text/css" media="screen" href="${tg.url('/css/style.css')}" />
 </head>
 
-<body py:match="body" py:attrs="select('@*')">
+<style>
+  body,div,p, h1,h2,h3,h4,h5,h6{
+    color:#efefef;
+  }
+</style>
+<body py:match="body" py:attrs="select('@*')" style='background: #666;'>
   <!-- Navbar -->
-  <nav class="navbar navbar-default">
+  <!--< nav class="navbar navbar-default">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-content">
         <span class="sr-only">Toggle navigation</span>
@@ -41,9 +46,8 @@
         <li py:if="request.identity"><a href="${tg.url('/admin')}">Admin</a></li>
       </ul>
     </div>
-  </nav>
+  </nav> -->
 
-  <div class="container">
     <!-- Flash messages -->
     <py:with vars="flash=tg.flash_obj.render('flash', use_js=False)">
       <div class="row">
@@ -55,14 +59,13 @@
 
     <!-- Main included content -->
     <div py:replace="select('*|text()')"/>
-  </div>
 
 
   <!-- Footer -->
-  <footer class="footer hidden-xs hidden-sm">
+  <!-- <footer class="footer hidden-xs hidden-sm">
     <a class="pull-right" href="http://www.turbogears.org"><img style="vertical-align:middle;" src="${tg.url('/img/under_the_hood_blue.png')}" alt="TurboGears 2" /></a>
     <p>Copyright &copy; ${getattr(tmpl_context, 'project_name', 'TurboGears2')} ${h.current_year()}</p>
-  </footer>
+  </footer> -->
 
   <script src="http://code.jquery.com/jquery.js"></script>
   <script src="${tg.url('/javascript/bootstrap.min.js')}"></script>

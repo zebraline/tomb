@@ -157,7 +157,7 @@ class RootController(BaseController):
             return UNKNOW_ERROR
 
     @expose('json')
-    def add_message(self, user_id, text, image_list=[]):
+    def add_message(self, user_id, text, image_list='[]'):
         message = model.Message()
         message.user_id = user_id
         message.text = text
@@ -203,6 +203,7 @@ class RootController(BaseController):
             node = {}
             message_id = res.message_id
             node['text'] = res.text
+            node['created'] = res.created.split()[0]
             node['message_id'] = message_id
             query_res = model.DBSession.query(model.Image).filter(
                 model.Image.message_id==message_id).all()
